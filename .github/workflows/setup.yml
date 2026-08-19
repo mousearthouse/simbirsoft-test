@@ -1,0 +1,51 @@
+name: Setup infra for nginx
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy:
+    name: Deploy playbook
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+          
+      - name: Install Python
+        run: |
+          sudo apt update
+          sudo apt install -y python3-pip
+
+      - name: Install Ansible
+        run: |
+          pip3 install ansible
+
+      - name: Check Ansible environment
+        run: |
+          ansible --version
+          ansible-galaxy collection list
+          ansible-galaxy role list
+
+      - name: Create SSH private key file
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
+      - name: Run Ansible Playbook
+        env:
+          ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
+          ANSIBLE_PASSWORD: ${{ secrets.ANSIBLE_USER_PASSWD }}
+          ANSIBLE_BECOME_PASSWORD: ${{ secrets.ANSIBLE_USER_PASSWD }}
+          ANSIBLE_HOST_KEY_CHECKING: False
+        run: |
+            ansible-playbook \
+            -i ansible/inventory/hosts.yml \
+            ansible/playbooks/play_setup_vpn.yml \
+            --private-key private_key.pem \
+            -u ${{ secrets.ANSIBLE_USER }} \
+            --extra-vars "ansible_become_pass=${{ secrets.ANSIBLE_USER_PASSWD }}" \
+            --extra-vars "laptop_key=${{ secrets.LAPTOP_KEY }}" \
