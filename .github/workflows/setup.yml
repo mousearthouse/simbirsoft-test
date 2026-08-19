@@ -39,10 +39,10 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: False
           ANSIBLE_BECOME_PASSWORD: ${{ secrets.ANSIBLE_USER_PASSWD }}
-          run: |
-            ansible-playbook \
-              -i ansible/inventory/hosts.yml \
-              ansible/playbooks/play_setup.yml \
-              --private-key private_key.pem \
-              -u ansible-user
-              --extra-vars "ansible_become_password=${{ secrets.ANSIBLE_USER_PASSWD }}"
+        run: |
+          ansible-playbook \
+            -i ansible/inventory/hosts.yml \
+            ansible/playbooks/play_setup.yml \
+            --private-key private_key.pem \
+            -u ansible-user
+            --extra-vars "ansible_become_password=${{ secrets.ANSIBLE_USER_PASSWD }}"
