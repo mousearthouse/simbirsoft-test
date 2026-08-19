@@ -10,11 +10,11 @@ jobs:
   deploy:
     name: Deploy playbook
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-          
+
       - name: Install Python
         run: |
           sudo apt update
@@ -44,7 +44,7 @@ jobs:
         run: |
             ansible-playbook \
             -i ansible/inventory/hosts.yml \
-            ansible/playbooks/play_setup_vpn.yml \
+            ansible/playbooks/play_setup.yml \
             --private-key private_key.pem \
             -u ${{ secrets.ANSIBLE_USER }} \
             --extra-vars "ansible_become_pass=${{ secrets.ANSIBLE_USER_PASSWD }}" \

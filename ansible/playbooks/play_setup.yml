@@ -1,0 +1,10 @@
+- name: Setup nginx
+  hosts: mousehost
+  become: true
+
+  tasks:
+
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx=1.29.6
+        state: present
