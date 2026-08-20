@@ -32,7 +32,7 @@
 
 - name: Copy website
   ansible.builtin.copy:
-    src: /website/
+    src: ./website/
     dest: /var/www/html/
     owner: www-data
     group: www-data
