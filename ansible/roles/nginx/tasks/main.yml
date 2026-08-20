@@ -14,6 +14,10 @@
     url: https://nginx.org/keys/nginx_signing.key
     dest: /usr/share/keyrings/nginx_signing.key
     mode: '0644'
+    register: nginx_key
+    retries: 3
+    delay: 10
+    until: nginx_key is succeeded
 
 - name: Add nginx repository
   ansible.builtin.apt_repository:
