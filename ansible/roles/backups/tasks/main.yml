@@ -1,0 +1,28 @@
+- name: Install cron
+  ansible.builtin.apt:
+    name: cron
+    state: present
+
+- name: Make a nginx backup directory
+  ansible.builtin.file:
+    path: /var/backups/nginx
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Copy nginx backup script
+  ansible.builtin.template:
+    src: backup-nginx.sh.j2
+    dest: /usr/local/sbin/backup-nginx.sh
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Install nginx backup cron job
+  ansible.builtin.template:
+    src: nginx-backup.cron.j2
+    dest: /etc/cron.d/nginx-backup
+    owner: root
+    group: root
+    mode: '0644'
