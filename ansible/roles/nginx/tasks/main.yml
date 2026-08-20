@@ -32,10 +32,18 @@
 
 - name: Copy website
   ansible.builtin.copy:
-    src: website/
-    dest: /var/www/html/
+    src: files/index.html
+    dest: /var/www/html/index.html
     owner: www-data
     group: www-data
+    mode: '0644'
+
+- name: Copy nginx conf
+  ansible.builtin.copy:
+    src: files/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: nginx
+    group: nginx
     mode: '0644'
 
 - name: Start nginx
