@@ -2,8 +2,14 @@
   ansible.builtin.copy:
     src: /etc/letsencrypt/live/mousearthouse.space/fullchain.pem
     dest: /etc/nginx/certs/fullchain.pem
+    owner: nginx
+    group: nginx
+    mode: '0644'
 
 - name: Copy private key
   ansible.builtin.copy:
     src: /etc/letsencrypt/live/mousearthouse.space/privkey.pem
     dest: /etc/nginx/certs/privkey.pem
+    owner: nginx
+    group: nginx
+    mode: '0600'
