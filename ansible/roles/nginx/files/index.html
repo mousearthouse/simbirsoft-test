@@ -5,5 +5,10 @@
 </head>
 <body>
     <h1>Hello DevOps world!</h1>
+    <p>Timestamp: <span id="timestamp"></span></p>
 </body>
+<script>
+    var timestamp = new Date().getTime();
+    document.getElementById("timestamp").textContent = timestamp;
+</script>
 </html>
