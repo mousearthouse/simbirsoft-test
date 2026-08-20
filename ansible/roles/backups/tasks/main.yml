@@ -21,7 +21,7 @@
 
 - name: Install nginx backup cron job
   ansible.builtin.template:
-    src: files/cron-template.cron.j2
+    src: files/cron_template.cron.j2
     dest: /etc/cron.d/nginx-backup
     owner: root
     group: root
