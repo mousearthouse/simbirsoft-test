@@ -5,10 +5,62 @@
 </head>
 <body>
     <h1>Hello DevOps world!</h1>
-    <p>Timestamp: <span id="timestamp"></span></p>
+    <p>Time: <span id="date-time"></span></p>
 </body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+    }
+</style>
 <script>
-    var timestamp = new Date().getTime();
-    document.getElementById("timestamp").textContent = timestamp;
+    // i got the code from here:
+    // https://dev.to/dboatengx/build-a-real-time-changing-digital-clock-using-html-css-javascript-689
+    window.addEventListener("load", () => {
+        clock();
+        function clock() {
+            const today = new Date();
+
+            const hours = today.getHours();
+            const minutes = today.getMinutes();
+            const seconds = today.getSeconds();
+
+            const hour = hours < 10 ? "0" + hours : hours;
+            const minute = minutes < 10 ? "0" + minutes : minutes;
+            const second = seconds < 10 ? "0" + seconds : seconds;
+
+            const hourTime = hour > 12 ? hour - 12 : hour;
+            const ampm = hour < 12 ? "AM" : "PM";
+
+            const month = today.getMonth();
+            const year = today.getFullYear();
+            const day = today.getDate();
+
+            const monthList = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+            ];
+
+            const date = monthList[month] + " " + day + ", " + year;
+            const time = hourTime + ":" + minute + ":" + second + ampm;
+
+            const dateTime = date + " - " + time;
+
+            document.getElementById("date-time").innerHTML = dateTime;
+
+            setTimeout(clock, 1000);
+        }
+    });
 </script>
 </html>
