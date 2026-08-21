@@ -3,15 +3,29 @@ name: Ansible lint
 on:
   push:
     paths:
-      - 'ansible/playbooks/**'
-      - 'ansible/roles/**'
+      - 'ansible/**'
+      - 'requirements.yml'
   pull_request:
     paths:
-      - 'ansible/playbooks/**'
-      - 'ansible/roles/**'
+      - 'ansible/**'
+      - 'requirements.yml'
 
 jobs:
   ansible-lint:
-    uses: ansible/ansible-content-actions/.github/workflows/ansible_lint.yaml@main
-    with:
-      args: 'ansible/'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          python -m pip install ansible ansible-lint
+
+      - name: Install Ansible collections
+        run: |
+          ansible-galaxy collection install -r requirements.yml
+
+      - name: Run ansible-lint
+        run: |
+          ansible-lint ansible/
