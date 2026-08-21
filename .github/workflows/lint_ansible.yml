@@ -3,13 +3,13 @@ name: Ansible files & Deployment
 on:
   push:
     paths:
-      - 'ansible/playbooks/**'
+      - 'ansible/**'
   pull_request:
     paths:
-      - 'ansible/playbooks/**'
+      - 'ansible/**'
 
 jobs:
   ansible-lint:
     uses: ansible/ansible-content-actions/.github/workflows/ansible_lint.yaml@main
     with:
-      args: '-p ansible/playbooks'
+      args: '-p ansible/'
