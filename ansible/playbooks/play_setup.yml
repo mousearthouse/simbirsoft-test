@@ -1,4 +1,4 @@
-- name: Setup and run nginx
+- name: Setup services
   hosts: mousehost
   become: true
 
