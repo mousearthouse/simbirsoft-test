@@ -3,10 +3,12 @@ name: Ansible lint
 on:
   push:
     paths:
-      - 'ansible/**'
+      - 'ansible/playbooks/**'
+      - 'ansible/roles/**'
   pull_request:
     paths:
-      - 'ansible/**'
+      - 'ansible/playbooks/**'
+      - 'ansible/roles/**'
 
 jobs:
   ansible-lint:
