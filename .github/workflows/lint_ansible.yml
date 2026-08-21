@@ -1,0 +1,31 @@
+name: Ansible lint
+
+on:
+  push:
+    paths:
+      - 'ansible/**'
+      - 'requirements.yml'
+  pull_request:
+    paths:
+      - 'ansible/**'
+      - 'requirements.yml'
+
+jobs:
+  ansible-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          python -m pip install ansible ansible-lint
+
+      - name: Install Ansible collections
+        run: |
+          ansible-galaxy collection install -r ansible/requirements.yml
+
+      - name: Run ansible-lint
+        run: |
+          ansible-lint ansible/

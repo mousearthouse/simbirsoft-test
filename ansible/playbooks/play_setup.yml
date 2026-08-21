@@ -1,0 +1,8 @@
+- name: Setup services
+  hosts: mousehost
+  become: true
+
+  roles:
+    - nginx
+    - ufw
+    - backups
